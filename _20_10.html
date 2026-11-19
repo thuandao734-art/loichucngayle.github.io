@@ -1,0 +1,1115 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tri Ân Cô Giáo - 20/11</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Dancing+Script:wght@600;700&family=Be+Vietnam+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --pink: #ff6fae;
+    --rose: #ff3d84;
+    --gold: #ffd9a8;
+    --text: #fff1f6;
+}
+
+* {
+    box-sizing: border-box;
+    cursor: none;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: radial-gradient(circle at 50% 30%, #62234f, #250a2b 85%);
+    color: var(--text);
+    font-family: "Be Vietnam Pro", sans-serif;
+}
+
+
+
+.glow {
+    position: fixed;
+    width: 45vmax;
+    height: 45vmax;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: .3;
+    pointer-events: none;
+}
+
+.g1 {
+    background: #ff2d8a;
+    top: -15vmax;
+    left: -15vmax;
+}
+
+.g2 {
+    background: #8a3dff;
+    right: -15vmax;
+    bottom: -15vmax;
+}
+
+
+.star {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: white;
+    animation: tw 2s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes tw {
+    to {
+        opacity: .2;
+        box-shadow: 0 0 10px white;
+    }
+}
+
+
+
+#stage {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    transition: opacity 1s, transform 1s;
+}
+
+#stage.hide {
+    opacity: 0;
+    transform: scale(.85);
+    pointer-events: none;
+}
+
+.line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: "Playfair Display", serif;
+    font-weight: 900;
+    text-align: center;
+}
+
+.l1 {
+    font-size: clamp(28px, 7vw, 65px);
+    color: white;
+}
+
+.l2 {
+    font-size: clamp(55px, 13vw, 100px);
+    color: var(--pink);
+    text-shadow: 0 0 30px var(--rose);
+}
+
+.slot {
+    display: inline-block;
+    opacity: 0;
+}
+
+.slot.sp {
+    width: .3em;
+}
+
+.slot.ok {
+    opacity: 1;
+    animation: pop .6s;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1.7);
+        filter: brightness(2);
+    }
+    100% {
+        transform: scale(1);
+        filter: none;
+    }
+}
+
+.fly {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    pointer-events: none;
+    font-family: "Playfair Display", serif;
+    font-weight: 900;
+    color: #ffb3d4;
+    text-shadow: 0 0 15px var(--rose);
+    will-change: transform;
+}
+
+#hint {
+    color: var(--gold);
+    font-family: "Dancing Script", cursive;
+    font-size: 25px;
+    text-align: center;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        opacity: .5;
+        transform: scale(1.05);
+    }
+}
+
+
+
+button {
+    border: none;
+    border-radius: 50px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #ff6fae, #ff3d84);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    box-shadow: 0 0 25px #ff3d8480;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+
+
+#card {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 25px 15px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s;
+}
+
+#card.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.box {
+    width: 100%;
+    max-width: 480px;
+    padding: 28px 22px;
+    text-align: center;
+    border-radius: 25px;
+    background: linear-gradient(
+        150deg,
+        rgba(255,255,255,.15),
+        rgba(255,255,255,.04)
+    );
+    border: 1px solid rgba(255,182,213,.4);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 25px 90px #ff3d8440;
+    transform: scale(.8) translateY(30px);
+    transition: transform 1.2s;
+}
+
+#card.show .box {
+    transform: none;
+}
+
+
+
+.badge {
+    display: inline-block;
+    padding: 9px 18px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #ffd9a8, #ffb3d4);
+    color: #54183e;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+
+
+.big {
+    font-size: 55px;
+    margin: 15px 0 5px;
+    animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+    15% { transform: scale(1.25); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+
+
+.t1 {
+    font-family: "Dancing Script", cursive;
+    color: var(--gold);
+    font-size: 25px;
+    margin: 5px 0;
+}
+
+.t2 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(35px, 8vw, 48px);
+    margin: 0;
+    background: linear-gradient(
+        90deg,
+        #ff9ec8,
+        white,
+        #ffd9a8,
+        #ff6fae
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+
+.orn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    color: var(--pink);
+    font-size: 23px;
+    margin: 15px 0;
+}
+
+.orn::before,
+.orn::after {
+    content: "";
+    width: 22%;
+    height: 1px;
+    background: var(--pink);
+}
+
+/* Lời chúc */
+
+#msg {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.9;
+    margin: 15px 0;
+    min-height: 100px;
+}
+
+
+
+.wishes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.w {
+    padding: 13px 8px;
+    border-radius: 15px;
+    background: #ffffff12;
+    border: 1px solid #ffb6d540;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: .8s;
+}
+
+.w.on {
+    opacity: 1;
+    transform: none;
+}
+
+.w i {
+    display: block;
+    font-size: 25px;
+    font-style: normal;
+}
+
+.w b {
+    display: block;
+    color: #ffc2dc;
+    font-family: "Playfair Display", serif;
+    margin: 7px 0;
+    font-size: 14px;
+}
+
+.w span {
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+
+.quote {
+    color: var(--gold);
+    font-family: "Dancing Script", cursive;
+    font-size: 19px;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.sign {
+    color: var(--pink);
+    font-family: "Dancing Script", cursive;
+    font-size: 19px;
+    margin-top: 15px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.on2 {
+    opacity: 1;
+}
+
+/* Tim bay */
+
+.heart {
+    position: fixed;
+    bottom: -50px;
+    z-index: 1;
+    pointer-events: none;
+    animation: up linear forwards;
+}
+
+@keyframes up {
+    to {
+        transform: translate(var(--dx), -115vh) rotate(var(--rot));
+        opacity: 0;
+    }
+}
+
+/* Hiệu ứng khi bấm */
+
+.burst {
+    position: fixed;
+    z-index: 10;
+    pointer-events: none;
+    animation: bst .9s forwards;
+}
+
+@keyframes bst {
+    to {
+        transform: translate(var(--bx), var(--by)) scale(.3);
+        opacity: 0;
+    }
+}
+
+/* Con trỏ trái tim */
+
+#cur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    pointer-events: none;
+    font-size: 25px;
+    opacity: 0;
+    color: var(--rose);
+    text-shadow: 0 0 15px var(--rose);
+}
+
+.trail {
+    position: fixed;
+    z-index: 98;
+    pointer-events: none;
+    color: var(--pink);
+    animation: tr 1s forwards;
+}
+
+@keyframes tr {
+    to {
+        transform: translateY(-80px) scale(.4);
+        opacity: 0;
+    }
+}
+
+@media(max-width: 480px) {
+    .box {
+        padding: 23px 15px;
+    }
+
+    #msg {
+        font-size: 13px;
+    }
+
+    .w span {
+        font-size: 10px;
+    }
+}
+
+@media (pointer: coarse) {
+    * {
+        cursor: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+
+<!-- Màn hình đầu -->
+
+<div id="stage">
+    <div class="line l1" id="l1"></div>
+    <div class="line l2" id="l2"></div>
+
+    <div id="hint">
+        ✦ Một lời tri ân đang chờ... ✦
+    </div>
+
+    <button id="btn">Mở lời chúc 💌</button>
+</div>
+
+<!-- Thiệp chính -->
+
+<div id="card">
+    <div class="box">
+
+        <span class="badge">
+            20 · 11 &nbsp; NGÀY NHÀ GIÁO VIỆT NAM
+        </span>
+
+        <div class="big">💖</div>
+
+        <p class="t1">Trân trọng gửi đến</p>
+
+        <h1 class="t2" id="name"></h1>
+
+        <div class="orn">❀ ❤ ❀</div>
+
+        <div id="msg"></div>
+
+        <div class="wishes" id="wishes"></div>
+
+        <div class="quote" id="quote"></div>
+
+        <div class="sign" id="sign"></div>
+
+        <p style="font-size:12px;color:#ffc2dc;margin-top:20px">
+            Nhấn vào màn hình để thả thêm trái tim ♡
+        </p>
+
+    </div>
+</div>
+
+<script>
+
+
+const CFG = {
+
+    l1: "CHÚC MỪNG NGÀY",
+
+    l2: "20/11",
+
+    name: "Lời chúc 20/11",
+
+    intro:
+    "Nhân ngày Nhà giáo Việt Nam 20/11, chúng em xin gửi đến chị những lời chúc tốt đẹp và chân thành nhất. Cảm ơn chị đã luôn tận tâm giảng dạy, dìu dắt và truyền cho chúng em những kiến thức quý báu. Những bài học và tình yêu nghề của chị sẽ luôn là hành trang quý giá trên con đường trưởng thành. Kính chúc chị luôn mạnh khỏe, hạnh phúc và mãi giữ ngọn lửa nhiệt huyết với nghề giáo!",
+
+    wishes: [
+        ["🌷", "Luôn mạnh khỏe", "Chúc chị luôn khỏe mạnh và tràn đầy năng lượng."],
+        ["💖", "Mãi hạnh phúc", "Mong chị luôn ngập tràn niềm vui và tiếng cười."],
+        ["✨", "Luôn thành công", "Chúc chị gặt hái nhiều thành công trong sự nghiệp."],
+        ["🌹", "Vạn sự bình an", "Chúc mọi điều tốt đẹp luôn đến với chị."]
+    ],
+
+    quote:
+    "Cảm ơn chị vì những bài học quý giá và sự tận tâm chị đã dành cho chúng em.",
+
+    sign:
+    "— Tập thể lớp IELTS IC2337 kính chúc chị 20/11 thật ý nghĩa! 🌹"
+
+};
+
+/* ==========================
+   HÀM HỖ TRỢ
+========================== */
+
+const $ = id => document.getElementById(id);
+
+const rnd = arr => arr[Math.floor(Math.random() * arr.length)];
+
+const R = (a,b) => Math.random() * (b-a) + a;
+
+const POOL = "ABCDEFGHIKLMNOPQRSTUVXY0123456789";
+
+/* ==========================
+   TẠO SAO
+========================== */
+
+for(let i = 0; i < 70; i++){
+
+    const s = document.createElement("div");
+
+    s.className = "star";
+
+    s.style.left = R(0,100) + "vw";
+    s.style.top = R(0,100) + "vh";
+    s.style.animationDelay = R(0,3) + "s";
+
+    document.body.appendChild(s);
+}
+
+/* ==========================
+   HIỂN THỊ NỘI DUNG
+========================== */
+
+$("name").textContent = CFG.name;
+$("sign").textContent = CFG.sign;
+$("quote").textContent = CFG.quote;
+
+$("wishes").innerHTML = CFG.wishes.map(w => `
+    <div class="w">
+        <i>${w[0]}</i>
+        <b>${w[1]}</b>
+        <span>${w[2]}</span>
+    </div>
+`).join("");
+
+/* ==========================
+   HIỆU ỨNG GIẢI MÃ
+========================== */
+
+let flyers = [];
+
+let W = innerWidth;
+let H = innerHeight;
+
+let decoding = false;
+let landed = 0;
+let total = 0;
+
+function build(el,text){
+
+    [...text].forEach(c => {
+
+        const s = document.createElement("span");
+
+        s.className = "slot" + (c === " " ? " sp" : "");
+
+        s.textContent = c === " " ? "\u00a0" : c;
+
+        el.appendChild(s);
+
+        if(c !== " "){
+            flyers.push({
+                slot: s,
+                c: c,
+                real: true
+            });
+        }
+
+    });
+
+}
+
+build($("l1"),CFG.l1);
+build($("l2"),CFG.l2);
+
+total = flyers.length;
+
+/* Tạo các chữ bay */
+
+function mk(f,size){
+
+    const e = document.createElement("div");
+
+    e.className = "fly";
+
+    e.style.fontSize = size + "px";
+
+    e.style.color = rnd([
+        "#ffb3d4",
+        "#ff6fae",
+        "#ffd9a8",
+        "#e0b3ff",
+        "#ffffff"
+    ]);
+
+    e.textContent = rnd(POOL);
+
+    document.body.appendChild(e);
+
+    Object.assign(f,{
+        el:e,
+        x:R(0,W),
+        y:R(0,H),
+        vx:R(-2.5,2.5),
+        vy:R(-2.5,2.5),
+        rot:R(0,360),
+        vr:R(-3,3),
+        t:R(0,6),
+        sc:1,
+        state:"fly"
+    });
+
+}
+
+/* Khởi tạo */
+
+function init(){
+
+    flyers.forEach(f => {
+
+        mk(f,parseFloat(getComputedStyle(f.slot).fontSize));
+
+    });
+
+    for(let i = 0; i < 35; i++){
+
+        const f = {real:false};
+
+        flyers.push(f);
+
+        mk(f,R(18,55));
+
+    }
+
+    requestAnimationFrame(tick);
+
+}
+
+/* Chuyển động chữ */
+
+function tick(){
+
+    flyers.forEach(f => {
+
+        if(f.state === "done" || !f.el) return;
+
+        if(f.state === "fly"){
+
+            f.vx += R(-.12,.12);
+            f.vy += R(-.12,.12);
+
+            const m = Math.hypot(f.vx,f.vy);
+
+            if(m > 3.2){
+
+                f.vx *= 3.2/m;
+                f.vy *= 3.2/m;
+
+            }
+
+            f.x += f.vx;
+            f.y += f.vy;
+
+            f.rot += f.vr;
+            f.t += .04;
+
+            f.sc = 1 + Math.sin(f.t)*.3;
+
+            if(f.x < 0 || f.x > W) f.vx *= -1;
+            if(f.y < 0 || f.y > H) f.vy *= -1;
+
+        }else{
+
+            const k = .075;
+
+            f.x += (f.tx-f.x)*k;
+            f.y += (f.ty-f.y)*k;
+
+            f.rot += (0-f.rot)*k;
+            f.sc += (1-f.sc)*k;
+
+            if(Math.hypot(f.tx-f.x,f.ty-f.y)<1.2){
+                land(f);
+            }
+
+        }
+
+        f.el.style.transform =
+        `translate(${f.x}px,${f.y}px)
+        translate(-50%,-50%)
+        rotate(${f.rot}deg)
+        scale(${f.sc})`;
+
+    });
+
+    requestAnimationFrame(tick);
+
+}
+
+/* Chữ ghép thành công */
+
+function land(f){
+
+    f.state = "done";
+
+    f.el.remove();
+
+    f.slot.classList.add("ok");
+
+    sparkle(f.slot);
+
+    landed++;
+
+    if(landed === total){
+
+        $("hint").textContent = "Giải mã thành công 💖";
+
+        heartStorm();
+
+        setTimeout(showCard,1500);
+
+    }
+
+}
+
+/* Đổi ký tự ngẫu nhiên */
+
+setInterval(() => {
+
+    flyers.forEach(f => {
+
+        if(f.el && f.state !== "done" && Math.random()<.4){
+
+            f.el.textContent = rnd(POOL);
+
+        }
+
+    });
+
+},150);
+
+/* Bắt đầu giải mã */
+
+function decode(){
+
+    if(decoding) return;
+
+    decoding = true;
+
+    $("btn").style.display = "none";
+
+    $("hint").textContent =
+    "Những lời yêu thương đang tìm về nhau... ✨";
+
+    let i = 0;
+
+    flyers.forEach(f => {
+
+        if(f.real){
+
+            setTimeout(() => {
+
+                const r = f.slot.getBoundingClientRect();
+
+                f.tx = r.left + r.width/2;
+                f.ty = r.top + r.height/2;
+
+                f.state = "go";
+
+                f.el.textContent = f.c;
+
+            },600 + i++ * 100);
+
+        }else{
+
+            setTimeout(() => {
+
+                f.el.style.opacity = 0;
+
+            },500 + R(0,1000));
+
+            setTimeout(() => {
+
+                f.state = "done";
+
+                f.el.remove();
+
+            },2200);
+
+        }
+
+    });
+
+}
+
+$("btn").onclick = decode;
+
+$("stage").addEventListener("click",e => {
+
+    if(e.target.id !== "btn") decode();
+
+});
+
+window.addEventListener("resize",() => {
+
+    W = innerWidth;
+    H = innerHeight;
+
+});
+
+if(document.fonts && document.fonts.ready){
+
+    document.fonts.ready.then(init);
+
+}else{
+
+    init();
+
+}
+
+/* ==========================
+   HIỆU ỨNG LẤP LÁNH
+========================== */
+
+function sparkle(el){
+
+    const r = el.getBoundingClientRect();
+
+    for(let i=0;i<4;i++){
+
+        burst(
+            r.left+r.width/2,
+            r.top+r.height/2,
+            "✦",
+            15
+        );
+
+    }
+
+}
+
+function burst(x,y,ch,size){
+
+    const b = document.createElement("div");
+
+    b.className = "burst";
+
+    b.textContent = ch;
+
+    b.style.left = x + "px";
+    b.style.top = y + "px";
+    b.style.fontSize = size + "px";
+    b.style.color = "#ffc2dc";
+
+    b.style.setProperty("--bx",R(-70,70)+"px");
+    b.style.setProperty("--by",R(-70,70)+"px");
+
+    document.body.appendChild(b);
+
+    setTimeout(() => b.remove(),900);
+
+}
+
+/* ==========================
+   TRÁI TIM BAY
+========================== */
+
+const HEARTS = [
+    "❤","💖","💗","💕","💘","🌸","🌹","💝"
+];
+
+function heart(){
+
+    const h = document.createElement("div");
+
+    h.className = "heart";
+
+    h.textContent = rnd(HEARTS);
+
+    const d = R(5,11);
+
+    h.style.left = R(0,100)+"vw";
+    h.style.fontSize = R(18,42)+"px";
+    h.style.animationDuration = d+"s";
+
+    h.style.setProperty("--dx",R(-80,80)+"px");
+    h.style.setProperty("--rot",R(-40,40)+"deg");
+
+    document.body.appendChild(h);
+
+    setTimeout(() => h.remove(),d*1000);
+
+}
+
+/* Bão trái tim */
+
+function heartStorm(){
+
+    for(let i=0;i<40;i++){
+
+        setTimeout(heart,i*70);
+
+    }
+
+}
+
+/* ==========================
+   HIỂN THỊ THIỆP
+========================== */
+
+function showCard(){
+
+    $("stage").classList.add("hide");
+
+    $("card").classList.add("show");
+
+    setInterval(heart,350);
+
+    heartStorm();
+
+    let i = 0;
+
+    function type(){
+
+        $("msg").textContent = CFG.intro.slice(0,++i);
+
+        if(i < CFG.intro.length){
+
+            setTimeout(type,30);
+
+        }else{
+
+            document.querySelectorAll(".w").forEach((w,k) => {
+
+                setTimeout(() => {
+
+                    w.classList.add("on");
+
+                },k*350);
+
+            });
+
+            setTimeout(() => {
+
+                $("quote").classList.add("on2");
+
+            },1800);
+
+            setTimeout(() => {
+
+                $("sign").classList.add("on2");
+
+            },2500);
+
+        }
+
+    }
+
+    setTimeout(type,800);
+
+}
+
+/* ==========================
+   NHẤN SPACE ĐỂ THẢ TIM
+========================== */
+
+document.addEventListener("keydown",e => {
+
+    if(e.code === "Space"){
+
+        e.preventDefault();
+
+        if(!decoding){
+
+            decode();
+
+        }else{
+
+            heartStorm();
+
+        }
+
+    }
+
+});
+
+/* ==========================
+   CON TRỎ TRÁI TIM
+========================== */
+
+const cur = document.createElement("div");
+
+cur.id = "cur";
+
+cur.textContent = "❤";
+
+document.body.appendChild(cur);
+
+let last = 0;
+
+window.addEventListener("pointermove",e => {
+
+    cur.style.transform =
+    `translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
+
+    cur.style.opacity = 1;
+
+    if(Date.now()-last < 60) return;
+
+    last = Date.now();
+
+    const t = document.createElement("div");
+
+    t.className = "trail";
+
+    t.textContent = rnd(["❤","💖","💕"]);
+
+    t.style.left = e.clientX+"px";
+    t.style.top = e.clientY+"px";
+    t.style.fontSize = R(12,20)+"px";
+
+    document.body.appendChild(t);
+
+    setTimeout(() => t.remove(),1000);
+
+});
+
+document.addEventListener("mouseleave",() => {
+
+    cur.style.opacity = 0;
+
+});
+
+/* Nhấn vào thiệp tạo hiệu ứng */
+
+$("card").addEventListener("click",e => {
+
+    if(e.target.tagName !== "BUTTON"){
+
+        for(let i=0;i<6;i++){
+
+            burst(
+                e.clientX,
+                e.clientY,
+                rnd(HEARTS),
+                20
+            );
+
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
